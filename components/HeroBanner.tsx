@@ -2,7 +2,6 @@ import React from 'react'
 import Link from 'next/link'
 import { BannerType } from '@/pages'
 import { urlFor } from '@/lib/client'
-import Image from 'next/image'
 
 interface HeroBannerProps {
   banner : BannerType
@@ -15,7 +14,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({banner}) => {
       <p className='text-xl capitalize'>{banner.smallText}</p>
       <h3 className='text-6xl mt-1 capitalize'>{banner.midText}</h3>
       <h1 className='text-white text-9xl ml-[-20px] uppercase'>{banner.largeText1}</h1>
-      <Image
+      <img
         src={urlFor(banner.image.asset._ref).url()}
         alt='Laptop'
         className='absolute w-[74%] h-[53%] top-[5%]  right-[13%] md:top-[2%] md:right-1/4 md:w-[450px] md:h-[450px] object-cover'

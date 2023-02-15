@@ -10,7 +10,6 @@ import logo from '@/public/logo.png'
 import Login from './Login';
 import { useShoppingCart } from '@/context/ShoppingCartContext'
 import Cart from './Cart'
-import Image from 'next/image'
 
 
 const Navbar = () => {
@@ -42,7 +41,7 @@ const Navbar = () => {
     <AppBar style = {{position:'fixed'}}>
       <StyledToolBar>
         <Link href='/'>
-          <Image
+          <img
             src={logo.src}
             alt="Logo"
             style={

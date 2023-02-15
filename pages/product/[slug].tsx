@@ -6,7 +6,6 @@ import { formatCurrency } from '@/utilities/formatCurrency'
 import Marquee from "react-fast-marquee";
 import { Product } from '@/components'
 import { useShoppingCart } from '@/context/ShoppingCartContext'
-import Image from 'next/image'
 
 type ProductDetailsProps = {
   product: ProductsType,
@@ -28,7 +27,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
       <div className='flex flex-wrap md:flex-nowrap gap-10 m-3  md:m-10 mt-14 text-[#324d67]'>
         <div className=' flex-shrink-0 '>
           <div>
-            <Image
+            <img
               src={urlFor(image && image[index].asset._ref).url()}
               alt = 'Image'
               className='w-[350px] h-[350px] md:w-[400px] md:h-[400px] rounded-2xl cursor-pointer bg-[#ebebeb] transition duration-300 ease-in-out hover:bg-sky-400'
@@ -37,7 +36,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
           <div className='flex gap-2.5 mt-5'>
               {
                 image?.map((item, i) => (
-                  <Image
+                  <img
                     key={i}
                     alt= 'Image'
                     src={urlFor(item.asset._ref).url()}
