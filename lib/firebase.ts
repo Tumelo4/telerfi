@@ -3,17 +3,17 @@ import { getAuth } from 'firebase/auth';
 
 
 const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_API_KEY,
+    apiKey: process.env.NEXT_PUBLIC_API_KEY || 'test',
     
-    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+    authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN || 'test',
     
-    projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+    projectId: process.env.NEXT_PUBLIC_PROJECT_ID || 'test',
   
-    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+    storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET || 'test',
   
-    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+    messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID || 'test',
   
-    appId: process.env.NEXT_PUBLIC_APP_ID
+    appId: process.env.NEXT_PUBLIC_APP_ID || 'test'
   
 };
 
