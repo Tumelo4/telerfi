@@ -63,7 +63,7 @@ const Success = () => {
 
         // Triggering confetti animation
         runFireworks(); // celebrate the successful purchase with some fireworks
-    },[]) // only run this code once, when the component mounts
+    },[setcartItems, settotalPrice, settotalQuantities, setIsLogin ]) // only run this code once, when the component mounts
 
   return (
 

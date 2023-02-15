@@ -8,6 +8,7 @@ import { useFormProps } from '../interface/InputInterface'
 import { useForm } from 'react-hook-form';
 import { async } from '@firebase/util';
 import { useShoppingCart } from '@/context/ShoppingCartContext';
+import Image from 'next/image'
 
 const schema = yup.object({
   email: yup.string().required("Email is a required field"),
@@ -31,7 +32,7 @@ const Login: React.FC = () => {
   return (
     
     <div className='flex flex-col items-center w-80 sm:w-96 p-6 shadow-md rounded-md bg-white  relative'>
-      <img
+      <Image
         src={logo.src}
         alt="Logo"
         className="mx-auto w-20 my-1"
@@ -80,8 +81,8 @@ const Login: React.FC = () => {
                 >
                   Login
                 </button>
-
-                <div className="flex justify-center text-xs font-light text-center text-gray-700"> Don't have an account? <div onClick={() => setisLoginC(false)} className="font-medium text-purple-600 hover:underline cursor-pointer">Sign up</div></div>
+                
+                <div className="flex justify-center text-xs font-light text-center text-gray-700"> Don&apos;t have an account? <div onClick={() => setisLoginC(false)} className="font-medium text-purple-600 hover:underline cursor-pointer">Sign up</div></div>
               </form>
             </div>
           )

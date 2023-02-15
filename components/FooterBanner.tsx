@@ -2,6 +2,7 @@ import { urlFor } from '@/lib/client'
 import { BannerType } from '@/pages'
 import Link from 'next/link'
 import React from 'react'
+import Image from 'next/image'
 
 type FooterBannerProps = {
   banner: BannerType
@@ -19,7 +20,7 @@ const FooterBanner: React.FC<FooterBannerProps> = ({banner: {desc, discount, lar
           <p className='m-4'>{saleTime}</p>
         </div>
 
-        <img
+        <Image
           src={urlFor(image.asset._ref).url()}
           className='w-[74%] h-[53%] md:w-[40%] md:h-[80%] md:left-[25%] top-[-20%] md:top-[-25%] absolute hover:scale-110 duration-500 '
           alt='Laptop'
