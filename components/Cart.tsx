@@ -95,6 +95,7 @@ const Cart = () => {
                     <img
                       src={urlFor(item?.product.image[0].asset._ref).url()}
                       alt='Image'
+                      loading="lazy"
                       className='w-1/4 h-1/4 bg-[#ebebeb] rounded-lg cursor-pointer'
                     />
                     <div className='flex flex-col gap-2  text-[#324d67] w-full justify-between'>

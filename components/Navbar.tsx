@@ -3,7 +3,7 @@ import {StyledToolBar, StyledBadge, Search, Icons, UserBox, StyleInputBase, styl
 import SearchIcon from '@mui/icons-material/Search'
 import MailIcon from '@mui/icons-material/Mail'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 import { Notifications } from '@mui/icons-material';
 import { FaShoppingCart } from 'react-icons/fa';
 import logo from '@/public/logo.png'
@@ -16,12 +16,12 @@ const Navbar = () => {
   const { showCart, setshowCart, totalQuantities, isLogin, setOpenLogin, openLogin, setIsLogin } = useShoppingCart();
   const [openMenu, setOpenMenu ] = useState<boolean>(false);
 
-  const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+  const toggleDrawer = useCallback((open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
     if (event.type === 'keydown' && ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')) {
       return;
     }
     setshowCart(open);
-  };
+  }, [setshowCart])
 
   const handleOpen = () => {
     if (!isLogin) {
@@ -44,6 +44,7 @@ const Navbar = () => {
           <img
             src={logo.src}
             alt="Logo"
+            loading="lazy"
             style={
               {
                 width: "32px",
@@ -177,4 +178,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default memo(Navbar)

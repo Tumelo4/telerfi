@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 import logo from '@/public/logo.png'
 import InputField from './InputField';
 import SignUp from './SignUp';
@@ -9,24 +9,26 @@ import { useForm } from 'react-hook-form';
 import { async } from '@firebase/util';
 import { useShoppingCart } from '@/context/ShoppingCartContext';
 
-const schema = yup.object({
-  email: yup.string().required("Email is a required field"),
-  password: yup.string().min(8)
-})
+
 
 const Login: React.FC = () => {
   const { login, isLoginC, setisLoginC } = useShoppingCart()
+
+  const schema = useMemo(() =>yup.object({
+    email: yup.string().required("Email is a required field"),
+    password: yup.string().min(8)
+  }), [])
 
   const { register, handleSubmit, formState: {errors}} = useForm<Partial<useFormProps>>({
     resolver: yupResolver(schema)
   });
 
 
-  const handleform =  (data: Partial<useFormProps>) => {
+  const handleform = useCallback( (data: Partial<useFormProps>) => {
     const email = data.email as string;
     const password = data.password as string;
     login(email, password);
-  }
+  },[login])
   
   return (
     
@@ -34,6 +36,7 @@ const Login: React.FC = () => {
       <img
         src={logo.src}
         alt="Logo"
+        loading="lazy"
         className="mx-auto w-20 my-1"
       />
 
@@ -94,4 +97,4 @@ const Login: React.FC = () => {
   )
 }
 
-export default Login
+export default memo(Login)

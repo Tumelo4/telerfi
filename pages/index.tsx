@@ -74,7 +74,7 @@ const Home: React.FC<HomeProps> = ({ products, bannerData }) => {
       <div className='flex flex-wrap justify-center gap-4 mt-5 width-full'>
         {
           // Render each product in the products array using the Product component
-          products?.map(product_index => <Product key={product_index._id} product = {product_index} />)
+          products?.map(({ _id, name, image, price, slug })  => (<Product key={_id} name={name} image={image} price={price} slug={slug} />))
         }
       </div>
       

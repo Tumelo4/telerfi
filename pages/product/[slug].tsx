@@ -1,5 +1,5 @@
 import { client, urlFor } from '@/lib/client'
-import React, { useState } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 import { ProductsType } from '..'
 import {AiFillStar, AiOutlinePlus, AiOutlineStar, AiOutlineMinus } from 'react-icons/ai'
 import { formatCurrency } from '@/utilities/formatCurrency'
@@ -13,14 +13,29 @@ type ProductDetailsProps = {
 }
 
 const ProductDetails = ({ product, products }: ProductDetailsProps) => {
+
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(() => 0);
   const { incqty, decqty, qty, onAdd, setshowCart } = useShoppingCart();
 
-  const handleBuyNow = () => {
+  const handleBuyNow = useCallback(() => {
     onAdd(product, qty);
     setshowCart(true);
-  }
+  },[onAdd, product, qty, setshowCart])
+
+  const handleDecrement = useCallback(() => {
+    decqty();
+  }, [decqty]);
+  
+  const handleIncrement = useCallback(() => {
+    incqty();
+  }, [incqty]);
+
+  const imageUrl = useMemo(() => {
+    return urlFor(image && image[index].asset._ref).url()
+  }, [image, index])
+
+  const formattedPrice = useMemo(() => formatCurrency(price), [price]);
 
   return (
     <div className='mt-16'>
@@ -28,8 +43,9 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
         <div className=' flex-shrink-0 '>
           <div>
             <img
-              src={urlFor(image && image[index].asset._ref).url()}
-              alt = 'Image'
+              src={imageUrl}
+              alt='Image'
+              loading="lazy"
               className='w-[350px] h-[350px] md:w-[400px] md:h-[400px] rounded-2xl cursor-pointer bg-[#ebebeb] transition duration-300 ease-in-out hover:bg-sky-400'
             />
           </div>
@@ -40,7 +56,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
                     key={i}
                     alt= 'Image'
                     src={urlFor(item.asset._ref).url()}
-                    className={i === index? 'bg-sky-400 h-[70px] w-[70px] curson-pointer rounded-lg':'bg-[#ebebeb] h-[70px] w-[70px] curson-pointer rounded-lg'}
+                    className={i === index? 'bg-sky-400 h-[70px] w-[70px] cursor-pointer rounded-lg':'bg-[#ebebeb] h-[70px] w-[70px] curson-pointer rounded-lg'}
                     onMouseEnter={() => setIndex(i)}
                   />
                 ))
@@ -64,7 +80,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
             </div>
             <h4 className='mt-2'>Details:</h4>
             <p className='mt-2'>{details}</p>
-            <p className=' font-bold text-base mt-7 text-[#f02d34] '>{ formatCurrency(price)}</p>
+            <p className=' font-bold text-base mt-7 text-[#f02d34] '>{formattedPrice}</p>
 
             <div className='flex gap-5 mt-2 items-center'>
               <h3>Quantity:</h3>
@@ -72,7 +88,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
                 {/* Minus */}
               <span
                 className='border-solid border-2 text-[#f02d34] cursor-pointer px-3 text-base '
-                onClick={decqty}
+                onClick={handleDecrement}
               >
                   <AiOutlineMinus />
                 </span>
@@ -81,7 +97,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
                 </span>
               <span
                 className='border-solid border-2 text-[#31a831] cursor-pointer px-3 text-base'
-                onClick={incqty}
+                onClick={handleIncrement}
               >
                   <AiOutlinePlus />
                 </span>
@@ -122,8 +138,8 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
             >
               <div className='flex justify-center mt-5 flex-shrink-0 gap-4 ' onClick={() => setIndex(0)}>
                 {
-                  products.map((item) => (
-                    <Product key={item._id} product={item} />
+                  products.map(({ _id, name, image, price, slug })  => (
+                    <Product key={_id} name={name} image={image} price={price} slug={slug} />
                   ))
                 }
               </div>
@@ -164,4 +180,4 @@ export const getStaticProps = async ({params: {slug}}: any) => {
   }
 }
 
-export default ProductDetails
+export default memo(ProductDetails)

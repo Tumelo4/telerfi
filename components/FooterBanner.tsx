@@ -21,6 +21,7 @@ const FooterBanner: React.FC<FooterBannerProps> = ({banner: {desc, discount, lar
 
         <img
           src={urlFor(image.asset._ref).url()}
+          loading="lazy"
           className='w-[74%] h-[53%] md:w-[40%] md:h-[80%] md:left-[25%] top-[-20%] md:top-[-25%] absolute hover:scale-110 duration-500 '
           alt='Laptop'
         />

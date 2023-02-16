@@ -17,6 +17,7 @@ const HeroBanner: React.FC<HeroBannerProps> = ({banner}) => {
       <img
         src={urlFor(banner.image.asset._ref).url()}
         alt='Laptop'
+        loading="lazy"
         className='absolute w-[74%] h-[53%] top-[5%]  right-[13%] md:top-[2%] md:right-1/4 md:w-[450px] md:h-[450px] object-cover'
       />
       

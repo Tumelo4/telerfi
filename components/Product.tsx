@@ -2,20 +2,33 @@ import { urlFor } from '@/lib/client'
 import { ProductsType } from '@/pages'
 import { formatCurrency } from '@/utilities/formatCurrency'
 import Link from 'next/link'
-import React from 'react'
+import React, { memo } from 'react'
 
 type ProductProps = {
-  product: ProductsType
+  image: [
+    {
+      _key: string,
+      _type: string,
+      asset: {
+        _ref: string,
+        _type: string
+      }
+    }
+  ],
+  name: string,
+  price: number,
+  slug: {_type: string,current: string}
 }
 
-const Product = ({product: {image, name, slug, price}}: ProductProps) => {
+const Product = ({image, name, slug, price}: ProductProps) => {
   return (
     <div className='hover:z-[1000]'>
       <Link href={`/product/${slug.current}`}>
         <div className=' cursor-pointer scale-100 transition-transform duration-500 ease-in-out text-[#324d67] hover:scale-125 '>
           <img
             src={urlFor(image && image[0].asset._ref).url()}
-            alt = 'Image'
+            alt='Image'
+            loading="lazy"
             className = 'w-60 h-60 rounded-2xl bg-[#ebebeb] scale-100 transition-transform duration-500 ease-in-out'
           />
           <p className='font-medium'>{name}</p>
@@ -26,4 +39,4 @@ const Product = ({product: {image, name, slug, price}}: ProductProps) => {
   )
 }
 
-export default Product
+export default memo(Product)

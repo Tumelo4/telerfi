@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -7,29 +7,30 @@ import InputField from './InputField'
 import { useShoppingCart } from '@/context/ShoppingCartContext';
 import { AiOutlineArrowRight } from 'react-icons/ai'
 
-const schema = yup.object({
-    name: yup.string().required("Name is a required field"),
-    surname: yup.string().required("Surname is a required field"),
-    email: yup
-        .string()
-        .required("Email is a required field")
-        .email("Email is not valid!"),
-    password: yup.string().min(8)
-})
 
 const SignUp = () => {
     const { signUp, setisLoginC } = useShoppingCart()
+
+    const schema = useMemo(() =>yup.object({
+        name: yup.string().required("Name is a required field"),
+        surname: yup.string().required("Surname is a required field"),
+        email: yup
+            .string()
+            .required("Email is a required field")
+            .email("Email is not valid!"),
+        password: yup.string().min(8)
+    }), [])
     
     const { register, handleSubmit, formState: {errors}} = useForm<Partial<useFormProps>>({
         resolver: yupResolver(schema)
     });
 
-    const handleform = (data: Partial<useFormProps>) => {
+    const handleform = useCallback((data: Partial<useFormProps>) => {
         // ONLY USED EMAIL AND PASSWORD JUST TO SHOW THAT SIGNUP DOES WORK
         const email = data.email as string;
         const password = data.password as string;
         signUp(email, password);
-    }
+    }, [signUp])
     
     return (
         <div className='w-full space-y-2'>
@@ -98,4 +99,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default memo(SignUp)
