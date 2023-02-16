@@ -1,6 +1,6 @@
 import { urlFor } from '@/lib/client'
 import { BannerType } from '@/pages'
-import Link from 'next/link'
+// import Link from 'next/link'
 import React from 'react'
 
 type FooterBannerProps = {
@@ -31,7 +31,7 @@ const FooterBanner: React.FC<FooterBannerProps> = ({banner: {desc, discount, lar
           <p className='mx-4 mt-5 mb-2 md:m-4 capitalize'>{smallText}</p>
           <h3 className=' text-2xl md:text-6xl font-medium md:font-semibold capitalize'>{midText}</h3>
           <p className='ml-4 mr-2 my-2 md:m-4'>{desc}</p>
-          <Link href={`/product/${product}`}>
+          {/* <Link href={`/product/${product}`}> */}
             <button
               type='button'
               className='py-25 px-4 bg-white rounded-2xl text-red-700 text-lg mt-5  md:mt-10 border-0 font-medium cursor-pointer '
@@ -39,7 +39,7 @@ const FooterBanner: React.FC<FooterBannerProps> = ({banner: {desc, discount, lar
             >
               {buttonText}
             </button>
-          </Link>
+          {/* </Link> */}
         </div>
 
       </div>

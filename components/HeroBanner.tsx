@@ -1,5 +1,5 @@
 import React from 'react'
-import Link from 'next/link'
+// import Link from 'next/link'
 import { BannerType } from '@/pages'
 import { urlFor } from '@/lib/client'
 
@@ -23,14 +23,14 @@ const HeroBanner: React.FC<HeroBannerProps> = ({banner}) => {
       
       <div>
        
-        <Link href={`/product/${banner.product}`}>
+        {/* <Link href={`/product/${banner.product}`}> */}
           <button
             type='button'
             className='rounded-2xl mt-10  py-2 px-4 bg-[#703e40] text-white border-0 text-lg font-medium cursor-pointer !z-[10000]'
           >
             {banner.buttonText }
           </button>
-        </Link>
+        {/* </Link> */}
         
         <div className=' absolute right-[10%] bottom-[5%] w-72 leading-tight flex flex-col text-[#324d67]'>
           <h5 className=' mb-3 font-bold text-base self-end'>

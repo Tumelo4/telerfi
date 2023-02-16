@@ -14,7 +14,6 @@ type ProductDetailsProps = {
 
 const ProductDetails = ({ product, products }: ProductDetailsProps) => {
 
-  const { image, name, details, price } = product;
   const [index, setIndex] = useState(() => 0);
   const { incqty, decqty, qty, onAdd, setshowCart } = useShoppingCart();
 
@@ -32,13 +31,20 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
   }, [incqty]);
 
   const imageUrl = useMemo(() => {
-    return urlFor(image && image[index].asset._ref).url()
-  }, [image, index])
+    if (product)
+      return urlFor(product.image && product.image[index].asset._ref).url()
+    return ""
+  }, [product, index])
 
-  const formattedPrice = useMemo(() => formatCurrency(price), [price]);
+  const formattedPrice = useMemo(() => {
+    if (product)
+      return formatCurrency(product.price)
+    return formatCurrency(0);
+  }, [product]);
 
   return (
     <div className='mt-16'>
+      
       <div className='flex flex-wrap md:flex-nowrap gap-10 m-3  md:m-10 mt-14 text-[#324d67]'>
         <div className=' flex-shrink-0 '>
           <div>
@@ -51,11 +57,11 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
           </div>
           <div className='flex gap-2.5 mt-5'>
               {
-                image?.map((item, i) => (
+               product &&  product.image?.map((_item, i) => (
                   <img
                     key={i}
                     alt= 'Image'
-                    src={urlFor(item.asset._ref).url()}
+                    src={imageUrl}
                     className={i === index? 'bg-sky-400 h-[70px] w-[70px] cursor-pointer rounded-lg':'bg-[#ebebeb] h-[70px] w-[70px] curson-pointer rounded-lg'}
                     onMouseEnter={() => setIndex(i)}
                   />
@@ -65,7 +71,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
         </div>
         
         <div>
-            <h1>{name}</h1>
+            <h1>{product && product.name}</h1>
             <div className='text-[#f02d34] mt-2 flex flex-row gap-1 items-center'>
               <div className='flex flex-nowrap'>
                 <AiFillStar />
@@ -79,7 +85,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
               </p>
             </div>
             <h4 className='mt-2'>Details:</h4>
-            <p className='mt-2'>{details}</p>
+            <p className='mt-2'>{product && product.details}</p>
             <p className=' font-bold text-base mt-7 text-[#f02d34] '>{formattedPrice}</p>
 
             <div className='flex gap-5 mt-2 items-center'>
@@ -138,7 +144,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
             >
               <div className='flex justify-center mt-5 flex-shrink-0 gap-4 ' onClick={() => setIndex(0)}>
                 {
-                  products.map(({ _id, name, image, price, slug })  => (
+                  products && products.map(({ _id, name, image, price, slug })  => (
                     <Product key={_id} name={name} image={image} price={price} slug={slug} />
                   ))
                 }
