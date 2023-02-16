@@ -57,11 +57,11 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
           </div>
           <div className='flex gap-2.5 mt-5'>
               {
-               product &&  product.image?.map((_item, i) => (
+               product &&  product.image?.map((item, i) => (
                   <img
                     key={i}
                     alt= 'Image'
-                    src={imageUrl}
+                    src={urlFor(item && item.asset._ref).url()}
                     className={i === index? 'bg-sky-400 h-[70px] w-[70px] cursor-pointer rounded-lg':'bg-[#ebebeb] h-[70px] w-[70px] curson-pointer rounded-lg'}
                     onMouseEnter={() => setIndex(i)}
                   />

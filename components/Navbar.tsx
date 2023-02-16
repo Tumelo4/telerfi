@@ -86,14 +86,14 @@ const Navbar = () => {
           </StyledBadge>
             {/* Mail Icon */}
           <StyledBadge
-            badgeContent={4}
+            badgeContent={0}
             color="error"
           >
             <MailIcon color="action"/>
           </StyledBadge>
           {/* Notifications icon */}
           <StyledBadge
-            badgeContent={2}
+            badgeContent={0}
             color="error"
           >
             <Notifications color="action"/>
