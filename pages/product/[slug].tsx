@@ -120,7 +120,7 @@ const ProductDetails = ({ product, products }: ProductDetailsProps) => {
               <button
                 type='button'
                 className=' w-40 md:w-48 py-2 px-5 bg-[#f02d34] text-white border-0 mt-10 text-base cursor-pointer font-medium scale-100 transition-transform duration-500 ease-in-out hover:scale-110 '
-                onClick={() => handleBuyNow}
+                onClick={handleBuyNow}
               >
                 Buy Now
               </button>
